@@ -26,6 +26,34 @@ const questions = [
 
 ];
 
+const managerQuestions = [
+    { name: "officeNumber", message: "What's the manager's office number?" },
+];
+
+const engineerQuestions = [
+    { name: 'github', message: "What's is the engineer's Github account?"},
+];
+
+const internQuestions = [
+    { name: 'school', message: "What school does the intern attend?" }
+];
+
+const confirm = [
+    { type: "confirm", name: "adding", message: "Do you want to input more employee information?" },
+];
+
+const init = async () => {
+    const employees = [];
+    let addMore = true;
+
+    while (addMore) {
+        const { name, id, email, role } = await inquirer.prompt(questions);
+
+        if (role === 'Manager') {
+            const {officeNumber} = await inquirer.prompt(managerQuestions);
+        }
+    }
+}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
