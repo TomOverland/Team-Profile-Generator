@@ -51,6 +51,16 @@ const init = async () => {
 
         if (role === 'Manager') {
             const {officeNumber} = await inquirer.prompt(managerQuestions);
+        
+            employees.push(new Manager(name, id, email, officeNumber));
+        } else if (role === 'Engineer') {
+            const { github } = await inquirer.prompt(engineerQuestions);
+
+            employees.push(new Engineer(name, id, email, github));
+        } else {
+            const { school } = await inquirer.prompt(internQuestions);
+
+            employees.push(new Intern(name, id, email, school));
         }
     }
 }
