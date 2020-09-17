@@ -1,9 +1,13 @@
+const Employee = require('./lib/Employee')
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+
+const mkdirAsync = util.promisify(fs.mkdir);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -51,30 +55,37 @@ const init = async () => {
 
         if (role === 'Manager') {
             const {officeNumber} = await inquirer.prompt(managerQuestions);
-        
+            //create new manager object and push to employees array
             employees.push(new Manager(name, id, email, officeNumber));
         } else if (role === 'Engineer') {
             const { github } = await inquirer.prompt(engineerQuestions);
-
+            //create new engineer object and push to employees array
             employees.push(new Engineer(name, id, email, github));
         } else {
             const { school } = await inquirer.prompt(internQuestions);
-
+            //create new intern object and push to employees array
             employees.push(new Intern(name, id, email, school));
         }
+        // adding variable will return a boolean value based on user response to input more info, will end inputs on false
+        const { adding } = await inquirer.prompt(confirm);
+
+        addMore = adding;
     }
 }
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
-
+const html = render(employees);
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-
+if (!fs.existsSync(outputPath)) {
+    const error = await mkdirAsync(OUTPUT_DIR);
+    error && console.error(error);
+}
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
