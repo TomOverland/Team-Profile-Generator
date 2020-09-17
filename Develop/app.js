@@ -43,14 +43,14 @@ const internQuestions = [
 ];
 
 const confirm = [
-    { type: "confirm", name: "adding", message: "Do you want to input more employee information?" },
+    { type: "confirm", name: "continue", message: "Do you want to input more employee information?" },
 ];
 
 const init = async () => {
     const employees = [];
-    let addMore = true;
+    let newEmployee = true;
 
-    while (addMore) {
+    while (newEmployee) {
         const { name, id, email, role } = await inquirer.prompt(questions);
 
         if (role === 'Manager') {
@@ -66,10 +66,10 @@ const init = async () => {
             //create new intern object and push to employees array
             employees.push(new Intern(name, id, email, school));
         }
-        // adding variable will return a boolean value based on user response to input more info, will end inputs on false
-        const { adding } = await inquirer.prompt(confirm);
+        // addEmployee variable will return a boolean value based on user response to input more info, will end inputs on false
+        const { addEmployee } = await inquirer.prompt(confirm);
 
-        addMore = adding;
+        newEmployee = addEmployee;
     }
 }
 
