@@ -1,4 +1,5 @@
 # Team-Profile-Generator
+
 ![Screenshot of Application](https://github.com/TomOverland/Team-Profile-Generator/blob/master/assets/Screenshot-of-Application.JPG)
 
 ## Description:
@@ -41,7 +42,7 @@ Everyone is welcome to contribute. Create a pull request with your changes and I
 
 ## Tests:
 
-There are several tests run with Jest.
+The library I used to test this project was Jest. To run the tests, type "npm test" in your console.
 
 ## Demonstration
 
