@@ -1,9 +1,9 @@
 # Team-Profile-Generator
+![Screenshot of Application](https://github.com/TomOverland/Team-Profile-Generator/blob/master/assets/Screenshot-of-Application.JPG)
 
 ## Description:
 
-This command line application will dynamically create a HTML page containing contact information about your employees.    
-![Screenshot of Application](https://github.com/TomOverland/Team-Profile-Generator/blob/master/assets/Screenshot-of-Application.JPG)
+This command line application will dynamically create a HTML page containing contact information about your employees.
 
 # Table of Contents
 
