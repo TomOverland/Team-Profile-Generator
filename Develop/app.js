@@ -34,7 +34,7 @@ const managerQuestions = [
 ];
 
 const engineerQuestions = [
-  { name: "github", message: "What's is the engineer's Github account?" },
+  { name: "github", message: "What is the engineer's Github account?" },
 ];
 
 const internQuestions = [
