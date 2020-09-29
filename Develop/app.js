@@ -1,4 +1,4 @@
-const Employee = require("./lib/Employee");
+// Dependencies
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -7,14 +7,16 @@ const path = require("path");
 const fs = require("fs");
 const util = require("util");
 
-const mkdirAsync = util.promisify(fs.mkdir);
-const writeFileAsync = util.promisify(fs.writeFile);
+// File Creation
+const mkDir = util.promisify(fs.mkdir);
+const writeFile = util.promisify(fs.writeFile);
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+// Questions Array
 const questions = [
   { name: "name", message: "What is the employee's name?" },
   { name: "id", message: "What's the employee's ID?" },
@@ -27,8 +29,9 @@ const questions = [
   },
 ];
 
+// Role specific questions
 const managerQuestions = [
-  { name: "officeNumber", message: "What's the manager's office number?" },
+  { name: "office", message: "What's the manager's office number?" },
 ];
 
 const engineerQuestions = [
@@ -47,7 +50,8 @@ const confirm = [
   },
 ];
 
-const init = async () => {
+// Function that runs the inquirer prompts and pushes collected information to employees array
+const start = async () => {
   const employees = [];
   let newEmployee = true;
 
@@ -55,9 +59,9 @@ const init = async () => {
     const { name, id, email, role } = await inquirer.prompt(questions);
 
     if (role === "Manager") {
-      const { officeNumber } = await inquirer.prompt(managerQuestions);
+      const { office } = await inquirer.prompt(managerQuestions);
       // create new manager object and push to employees array
-      employees.push(new Manager(name, id, email, officeNumber));
+      employees.push(new Manager(name, id, email, office));
     } else if (role === "Engineer") {
       const { github } = await inquirer.prompt(engineerQuestions);
       // create new engineer object and push to employees array
@@ -76,12 +80,12 @@ const init = async () => {
   const html = render(employees);
 
   if (!fs.existsSync(outputPath)) {
-    const error = await mkdirAsync(OUTPUT_DIR);
+    const error = await mkDir(OUTPUT_DIR);
     error && console.error(error);
   }
 
-  const error = await writeFileAsync(outputPath, html);
+  const error = await writeFile(outputPath, html);
   error && console.error(error);
 };
 
-init();
+start();
